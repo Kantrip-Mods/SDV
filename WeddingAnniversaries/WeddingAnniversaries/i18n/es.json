@@ -1,0 +1,115 @@
+{
+
+    // DEFAULT
+
+    "AnniversaryReminder.0": "No olvides que nuestro aniversario es en una semana.$h#$b#Hmmmmm... ahora, ¿qué debería regalarte este año?",
+    "AnniversaryReminder.1": "Hey @, ¿adivina qué? ¡Nuestro aniversario es la próxima semana!$h#$b#Lo sé, yo también estoy emocionado.^Lo sé, yo también estoy emocionada.",
+    "AnniversaryReminder.2": "Asegúrate de llegar temprano a casa la próxima semana, @ -- ¡es nuestro aniversario!#$b#He estado esperando siglos para darte tu regalo.$h",
+
+    "Default.Anniversary.0": "Feliz aniversario, cariño.$l",
+    "Default.Anniversary.1": "Feliz aniversario, @. Gracias por ser mío.$l^Feliz aniversario, @. Gracias por ser mía.$l",
+    "Default.Anniversary.2": "Te amo, @. Feliz aniversario.$l",
+    "Default.Anniversary.3": "Feliz aniversario, @. Esto es para ti.$l",
+    "Default.Anniversary.4": "Aquí tienes, @. Feliz aniversario.$l",
+
+    "Bad.Anniversary.0": "Oh, ¿es nuestro aniversario? Supongo que esto es para ti.$s",
+    "Bad.Anniversary.1": "¿Es nuestro aniversario hoy? Casi lo olvido.$s#$b#Aquí tienes.",
+    "Bad.Anniversary.2": "Hmmmmmm... no has estado mucho por aquí, así que no tuve la oportunidad de preguntarte qué querías para nuestro aniversario.$s#$b#Supongo que esto tendrá que bastar.",
+    "Bad.Anniversary.3": "¿Aniversario? Oh, supongo que sí.$s#$b#Aquí tienes.",
+    "Bad.Anniversary.4": "Parece que hoy es nuestro aniversario,cariño. Cómo pasa el tiempo.$s#$b#Aquí, te conseguí algo.#$b#No te preocupes, no espero nada a cambio.$s",
+    
+    //BACHELORS
+    
+    "Alex.Anniversary.0": "¡Hola, ${granjero^granjera}$! Feliz aniversario.$h",
+    "Alex.Anniversary.1": "Feliz aniversario, @!$h#$b#¿Qué, creíste que lo olvidaría?$l",
+    "Alex.Anniversary.2": "¡Hey, @ -- atrapa!#$b#Feliz aniversario.$l",
+    "Alex.Anniversary.3": "Feliz aniversario, @. Realmente espero que te guste.$l#$b#No fue fácil pensar en el regalo perfecto para alguien como tú, ${chico^chica}$. ¡Pero creo que lo logré!$h",
+    "Alex.Anniversary.4": "Feliz aniversario, @.$l#$b#¿Tu regalo? Oh, sí, ¡atrápalo!#$b#Aunque no es ni de cerca tan especial como tú.$l",
+
+    "Elliott.Anniversary.0": "Buenos días, mi amor, y feliz aniversario.$l",
+    "Elliott.Anniversary.1": "\"${Él^Ella}$ despierta y me mira con esplendor lánguido. Mi corazón es una flor que florece bajo el calor del amor de ${él^ella}$.\"#$b#Para ti, mi amor. Feliz aniversario.$l",
+    "Elliott.Anniversary.2": "Amor mío, ¿de verdad ha pasado un año?#$b#De todos los que caminan bajo el sol, sin duda soy el más afortunado hoy. Feliz aniversario.$l",
+    "Elliott.Anniversary.3": "Feliz aniversario, mi amor.$h#$b#Eres la estrella brillante alrededor de la cual orbito, cautivado por tu encanto y gracia.$l",
+    "Elliott.Anniversary.4": "Para ti, mi amor. Que te dé al menos una fracción de la alegría que me has dado tú.$h#$b#Feliz aniversario.$l",
+
+    "Harvey.Anniversary.0": "Feliz aniversario, @.$l#$b#No es gran cosa, pero espero que te guste.",
+    "Harvey.Anniversary.1": "Buenos días, @. Feliz aniversario.$h#$b#No te emociones demasiado, pero te conseguí esto.",
+    "Harvey.Anniversary.2": "Feliz aniversario, cariño.$h#$b#Te conseguí un pequeño detalle. Espero que te guste.$l",
+    "Harvey.Anniversary.3": "Oh -- ¡@!#$b#No quería que te fueras antes de poder darte esto. Feliz aniversario.$h",
+    "Harvey.Anniversary.4": "Feliz aniversario, @. Esto es para ti.$h#$b#Trata de no emocionarte demasiado, es malo para el corazón.$h",
+
+    "Sam.Anniversary.0": "Hey, ${guapo^hermosa}$. Feliz aniversario.$l",
+    "Sam.Anniversary.1": "Feliz aniversario, @.$h#$b#Verte hoy... bueno. Me hace querer cantar.$l",
+    "Sam.Anniversary.2": "Buenos días, @. ¡Feliz aniversario!$h#$b#Te conseguí un pequeño detalle. Espero que te guste.",
+    "Sam.Anniversary.3": "Ok, pensé mucho en qué regalarte este año. Espero que te guste.#$b#Feliz aniversario.$l",
+    "Sam.Anniversary.4": "Cierra los ojos, @.$l#$b#%Sam coloca algo en tus manos.#$b#¡Está bien, ya puedes abrirlos! Feliz aniversario.$h",
+
+    "Sebastian.Anniversary.0": "Umm... esto es para ti. Feliz aniversario.$l",
+    "Sebastian.Anniversary.1": "Feliz aniversario, @.$h#$b#Pensé mucho en qué regalarte. Espero que te guste.$l",
+    "Sebastian.Anniversary.2": "... esto es para ti. De verdad espero que te guste.$l#$b#Feliz aniversario, @.",
+    "Sebastian.Anniversary.3": "Este año, para nuestro aniversario, pensé en conseguirte algo especial.#$b#Así que... aquí tienes. Feliz aniversario, @.",
+    "Sebastian.Anniversary.4": "Feliz aniversario.$l#$b#No estaba muy seguro de qué regalarte este año, pero espero que te guste de todas formas.$h",
+
+    "Shane.Anniversary.0": "Así que... no estaba seguro exactamente de qué regalarte este año. Pero te conseguí esto.#$b#Feliz aniversario, @. Espero que te guste.$h",
+    "Shane.Anniversary.1": "Muy bien, @. Quiero que cierres los ojos.$h#$b#%Shane coloca algo en tus manos.#$b#Feliz aniversario, @. ¿Qué te parece?",
+    "Shane.Anniversary.2": "Ok, pensé en qué regalarte para nuestro aniversario durante todo el año. Espero que te guste, @.$l",
+    "Shane.Anniversary.3": "Aquí tienes, @. Feliz aniversario.$l#$b#No estaba seguro de qué regalarte este año, así que le pedí consejo a Marnie y Jas.",
+    "Shane.Anniversary.4": "Jas me dijo que debía regalarte alas de hada para nuestro aniversario este año.#$b#Pero pensé que probablemente preferirías esto.$h#$b#Feliz aniversario.$l",
+   
+    //BACHELORETTES
+
+    "Abigail.Anniversary.0": "¡Hey, @ -- feliz aniversario!$l#$b#Vivir contigo ha sido toda una aventura.$h",
+    "Abigail.Anniversary.1": "Te conseguí algo por nuestro aniversario... ¡no te rías! Prometo que no es demasiado cursi.#$b#Feliz aniversario, @. Espero que te guste.$h",
+    "Abigail.Anniversary.2": "Buenos días, sol. ¡Feliz aniversario!$h#$b#Aquí, te conseguí esto. Espero que no te moleste.$l",
+    "Abigail.Anniversary.3": "Intenté preguntarle a mi ${papá^mamá}$ qué regalarte este aniversario.#$b#... Digamos que no volveré a cometer ese error.$h#$b#Esto es de *mi parte*. Feliz aniversario, @.$l",
+    "Abigail.Anniversary.4": "Sabes, @, casi no puedo creer que haya pasado un año. Ha sido... increíble.$h#$b#Feliz aniversario.$l",
+
+    "Emily.Anniversary.0": "Feliz aniversario, @.$h#$b#Aquí tienes, te conseguí algo para equilibrar tu aura.",
+    "Emily.Anniversary.1": "Feliz aniversario, @. Me hace tan feliz que nuestros destinos estén entrelazados.$l",
+    "Emily.Anniversary.2": "Esto va a sonar un poco extraño, @, pero siempre supe que te encontraría. Tenía este... presentimiento.$h#$b#¡Y aquí estás! Feliz aniversario.$l",
+    "Emily.Anniversary.3": "Buenos días, durmiente. ¡Espero que no hayas olvidado nuestro aniversario!$h#$b#Esto es para ti. Gracias por todo.$l",
+    "Emily.Anniversary.4": "Feliz aniversario, @.$h#$b#Honestamente, fue difícil elegir solo una cosa para expresar lo que siento por ti. Espero que te guste.$l",
+
+    "Haley.Anniversary.0": "Ahí estás, ${granjero^fgranjera}$. ¡Feliz aniversario!$h#$b#No te preocupes, guardé el recibo por si quieres devolverlo. No es gran cosa.",
+    "Haley.Anniversary.1": "¡Sorpresa, @ -- feliz aniversario!$l#$b#Bueno, ábrelo. Solo ten cuidado de no agitarlo demasiado.$h",
+    "Haley.Anniversary.2": "@, ¿adivina qué? ¡Hoy es nuestro aniversario!$l#$b#Sé que ya tienes el regalo perfecto para mí, pero quería darte el tuyo de inmediato.$h",
+    "Haley.Anniversary.3": "Feliz aniversario, @ -- ¡sonríe!#$b#Si pudiera, capturaría cada momento contigo.$l",
+    "Haley.Anniversary.4": "¡Oh! Rayos... Iba a arreglarme el cabello antes de darte esto, pero estaba tan emocionada esta mañana que lo olvidé.#$b#Bueno, qué más da. Feliz aniversario, cariño.$l",
+
+    "Leah.Anniversary.0": "Me desperté esta mañana con una sonrisa en el rostro.$l#$b#Así que... espero que esto te saque una sonrisa a ti también. Feliz aniversario, @.$h",
+    "Leah.Anniversary.1": "Anoche comencé una nueva escultura. Algo para capturar la felicidad que me has dado en este último año.$l#$b#Aún no está terminada, así que espero que esto sirva en su lugar. Feliz aniversario.$h",
+    "Leah.Anniversary.2": "Feliz aniversario, @.$h#$b#Esto es para ti. Caminemos juntos más tarde, ¿de acuerdo?$l",
+    "Leah.Anniversary.3": "Feliz aniversario, @.#$b#No soy tan buena con las palabras como Elliott, pero me hubiera gustado escribirte un poema hoy. Eres la persona más increíble que he conocido.$l#$b#En fin, esto es para ti. ¡Disfrútalo!$h",
+    "Leah.Anniversary.4": "Cuando entraste en mi vida, @, temía que pasaras como una brisa de verano.#$b#Pero en cambio, resultaste ser un roble. Uno en el que puedo apoyarme toda la vida.$l#$b#Feliz aniversario, @. Gracias por ser mío.$l",
+
+    "Maru.Anniversary.0": "¡Feliz aniversario, @!$h#$b#Aquí tienes, esto es para ti. No estaba segura de qué regalarte, así que decidí experimentar un poco.$u",
+    "Maru.Anniversary.1": "Según mis cálculos, ¡hoy es nuestro aniversario!#$b#Aquí tienes, algo para conmemorar la ocasión.$h",
+    "Maru.Anniversary.2": "Feliz aniversario, @.$h#$b#Pensé en preguntarle a mi papá qué regalarte, pero él siempre le compra a mamá un martillo nuevo. Ahora tiene toda una colección.#$b#De todos modos, ¡espero que te guste esto en su lugar!$h",
+    "Maru.Anniversary.3": "Aquí tienes, @, feliz aniversario.$h#$b#Eres la estrella brillante en el centro de mi sistema solar.$l",
+    "Maru.Anniversary.4": "Hice un análisis estadístico de todas tus actividades del último año y pude determinar el regalo óptimo para nuestro aniversario este año.$u#$b#...¡Espero! De todos modos, feliz aniversario, @.$h",
+
+    "Penny.Anniversary.0": "Um... no estaba muy segura de qué regalarte este año...#$b#Y significas tanto para mí que no quería arruinarlo...$s#$b#Así que... aquí tienes. Feliz aniversario, cariño. Espero que te guste.$l",
+    "Penny.Anniversary.1": "Mamá me dijo que debería comprarte un par de barriles para nuestro aniversario este año. Sin duda con la esperanza de que luego le des bebidas gratis.$s#$b#Así que en su lugar... te conseguí esto. Feliz aniversario, @.$h",
+    "Penny.Anniversary.2": "¡Oh, oh! Espera un segundo. Lo tengo en algún lado...#$b#%Penny revisa frenéticamente sus bolsillos.#$b#¡Aquí está! Feliz aniversario, cariño.$l",
+    "Penny.Anniversary.3": "Pasé mucho tiempo pensando en qué regalarte este año.#$b#Un tiempo vergonzosamente largo, de hecho.$s#$b#Pero aquí tienes... Espero que esto te haga sentir especial hoy. Feliz aniversario, @.",
+    "Penny.Anniversary.4": "¡Feliz aniversario, @!$h#$b#Estuve hablando con los niños sobre ello ayer. ¡Vincent intentó darme un caracol para regalártelo!#$b#Lo dejé en libertad en nuestro jardín. Espero que esto sirva en su lugar.$l",
+
+    //Gifts Lists -- DON'T TRANSLATE THESE!!!
+
+    "Default.gifts": "62 72 797 595 StardropTea 221 873 525 527 521 PurpleBook SkillBook_0",
+    
+    "Bad.gifts": "(O)196 (O)167 (O)194 (O)18 (O)22 (O)402 (O)418 (O)206 Book_Friendship (F)1402",
+    
+    "Abigail.gifts": "(TR)MagicHairDye (O)859 AbigailsBow (W)40 (F)WizardTable (H)51",
+    "Alex.gifts": "(TR)MagicHairDye (W)25 (O)521 (O)191 (F)1762 (H)20",
+    "Elliott.gifts": "(W)35 (O)859 TricornHat (O)191 (F)1748 (F)2421",
+    "Emily.gifts": "(W)3 (O)524 (S)1052 (O)74 (S)1039 (H)41",
+    "Haley.gifts": "(W)42 (O)525 ArtPhoto ArtPhoto2 (O)221 (H)47 (F)1974",
+    "Harvey.gifts": "(W)37 (O)860 RadioDesk ModelPlanes (F)724 (H)89",
+    "Leah.gifts": "(W)39 (O)839 ShortBookcase (F)88 (F)1283 (H)90",
+    "Maru.gifts": "(W)36 (O)859 (O)337 (S)1188 (F)PeriodicTable (F)1907 (H)84",
+    "Penny.gifts": "(W)38 (O)861 (F)RetroBookcase (F)BookStack (O)PurpleBook (H)50",
+    "Sam.gifts": "SamsSkateboard (W)30 (O)859 (H)JojaCap (F)1309 (F)JojaColaTeaTable",
+    "Sebastian.gifts": "(W)41 (O)862 (F)1289 (F)1563 (F)1600 (H)78",
+    "Shane.gifts": "ChickenDecal (O)863 (S)1246 (S)1180 (H)10 (F)1960 (F)1761",
+}
