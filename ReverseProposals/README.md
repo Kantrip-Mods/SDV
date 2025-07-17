@@ -8,8 +8,8 @@ This mod will handle or ignore custom NPCs based on the following logic:
    B) They have a black event specified. The default black proposal event won't play
 
 ### Flags this mod cares about:
-- `Kantrip.MarryMe_Start{{Suitor}}` -- set when the 10 heart event is seen, normally. This is something that they need to set themselves now. Allows both the black and the white events to start.
-- `Kantrip.MarryMe_StopBlack_{{Suitor}}` -- set when the white event is seen, to prevent the black event from being seen.
+- `Kantrip.MarryMe_Start{{Suitor}}` -- set when the 10 heart event is seen, normally. Allows both the black and the white DEFAULT events to start.
+- `Kantrip.MarryMe_StopBlack_{{Suitor}}` -- set when the white event is seen, to prevent the black DEFAULT event from being seen.
 
 ## Setup:
 
@@ -32,9 +32,14 @@ This mod will handle or ignore custom NPCs based on the following logic:
         "Kantrip.ReverseProposals/BlackEventID": "DISABLE", //leave this blank if you want the default black proposal to play
     },
 ```
-NOTE: If you don't want the NPC to participate in the default black proposal, just put any string in that field. I'm going to work on a way to make custom black proposals work at some point in the future (if there is interest).
+Details:
+`Kantrip.ReverseProposals/Allow`: if null or false, this NPC will be ignored by ReverseProposals.
+`Kantrip.ReverseProposals/WhiteEventID`: if null or blank, ReverseProposals will play the default white proposal for your NPC
+`Kantrip.ReverseProposals/WhiteEventID`: if null or blank, ReverseProposals will play the default black proposal for your NPC
 
-3. You can control the timing for both of the (DEFAULT) reverse proposal events by setting the flag `Kantrip.MarryMe_Start<NPCName>'. For example, I currently have triggers for all of the vanilla suitors that check to see if their 10heart events have been seen:
+Right now, I don't actuall do anything with the EventIds, but I may in the future. All that matters is if they are blank or not. If you don't have a valid event ID for the desperate proposal and just don't want your NPC to participate in it, just put anything in the field.
+
+3. If you want to control the timing for either of the DEFAULT reverse proposal events, you may do so by setting the flag `Kantrip.MarryMe_Start<NPCName>'. For example, I currently have triggers for all of the vanilla suitors that check to see if their 10heart events have been seen:
 
 ```
     "{{ModId}}_AbigailFlag": {
@@ -63,7 +68,7 @@ Whatever your event script looks like, you will want to do a couple of things in
 2. Do the engagement on a YES: `action Kantrip.SweetActions_DoEngagement NPCName`
 3. (optional) Do a breakup on a NO: `action Kantrip.SweetActions_DoBreakup NPCName`
 
-Example: Any proposal event in [CP] Marry Me. You are welcome to copy/use as much of `data\DefaultProposal.json` as you want.
+Example: Any proposal event in [CP] Marry Me. You are welcome to copy/use as much of the code in `data\DefaultProposal.json` as you want.
 
 ### Black Proposals (desperate -- plays when dating other NPCs at the same time)
 
@@ -72,4 +77,7 @@ Later. I'd like to make the default event's dialogue into an editable asset, but
 ## TODO: 
 Stuff that I want to make work but doesn't presently
 1. Customizeable black heart events and/or dialogue
+
+## NOTE: 
+If any part of this guide is unclear or if you have a better idea for how custom white/black events could be supported, reach out. I'd like to help if I can.
 
