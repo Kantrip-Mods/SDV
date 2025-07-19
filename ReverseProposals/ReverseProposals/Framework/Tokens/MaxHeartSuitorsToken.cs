@@ -1,3 +1,4 @@
+using System.Formats.Asn1;
 using StardewModdingAPI;
 using StardewValley;
 
@@ -167,7 +168,7 @@ internal class MaxHeartSuitorsToken : BaseToken
 
                 //Check fit hey have a white event specified. If not, then they are requesting the default event play for their NPC
                 StardewValley.GameData.Characters.CharacterData data = npc.GetData();
-                if (data != null && data.CustomFields.TryGetValue("Kantrip.ReverseProposals/WhiteEventID", out string whiteEventId))
+                if (data != null && data.CustomFields != null && data.CustomFields.TryGetValue("Kantrip.ReverseProposals/WhiteEventID", out string whiteEventId))
                 {
                     if (string.IsNullOrWhiteSpace(whiteEventId.Trim()))
                     {
@@ -223,8 +224,7 @@ internal class MaxHeartSuitorsToken : BaseToken
                 StardewValley.GameData.Characters.CharacterData data = npc.GetData();
                 bool isVanilla = vanillaSuitors.Contains(npc.Name);
                 bool isAllowed = false;
-                //bool isSupported = false;
-                if (data != null && data.CustomFields.TryGetValue("Kantrip.ReverseProposals/Allow", out string proposalAllowed))
+                if (data != null && data.CustomFields != null && data.CustomFields.TryGetValue("Kantrip.ReverseProposals/Allow", out string proposalAllowed))
                 {
                     if (proposalAllowed.ToLower().Trim() == "true")
                     {

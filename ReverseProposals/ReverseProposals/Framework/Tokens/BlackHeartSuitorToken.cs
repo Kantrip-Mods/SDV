@@ -197,14 +197,14 @@ internal class BlackHeartSuitorToken : BaseToken
                 bool isVanilla = vanillaSuitors.Contains(npc.Name);
                 bool isAllowed = false;
                 bool isSupported = false;
-                if (data != null && data.CustomFields.TryGetValue("Kantrip.ReverseProposals/Allow", out string proposalAllowed))
+                if (data != null && data.CustomFields != null && data.CustomFields.TryGetValue("Kantrip.ReverseProposals/Allow", out string proposalAllowed))
                 {
                     if (proposalAllowed.ToLower().Trim() == "true")
                     {
                         isAllowed = true;
                     }
                 }
-                if (data != null && data.CustomFields.TryGetValue("Kantrip.ReverseProposals/BlackEventID", out string blackEventId))
+                if (data != null && data.CustomFields != null && data.CustomFields.TryGetValue("Kantrip.ReverseProposals/BlackEventID", out string blackEventId))
                 {
                     if (!string.IsNullOrWhiteSpace(blackEventId.Trim()))
                     {

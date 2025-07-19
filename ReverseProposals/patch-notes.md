@@ -1,4 +1,4 @@
 # ReverseProposals - patch notes
 
-### v. 1.0
-* Initial release
+### v. 1.1.2
+* Fixed null reference when checking CustomFields
