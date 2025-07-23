@@ -5,4 +5,4 @@
 */*/obj
 */config.json
 **/.DS_Store
-ReverseProposals/manifest.json
+*.patch

@@ -70,7 +70,7 @@ public class ModEntry : Mod
 
     public static void RegisterActions()
     {
-        SweetActions.SweetActions.Register();
+        HeartActions.HeartActions.Register();
     }
 
     public static void RegisterTokens()

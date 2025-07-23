@@ -9,7 +9,7 @@ This mod now operates on a white list basis. You need to explicitly enable your 
 
 Please see the github page for detailed steps on how to do this, as well as guidelines for creating your own custom events.
 
-https://github.com/Kantrip-Mods/StardewMods/blob/main/ReverseProposals
+https://github.com/Kantrip-Mods/SDV/tree/main/ReverseProposals
 
 
 ##:: LICENSE  ::

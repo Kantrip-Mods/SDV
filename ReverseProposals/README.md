@@ -65,8 +65,8 @@ Create an event with the following preconditions (recommended for consistency, b
 
 Whatever your event script looks like, you will want to do a couple of things in this event:
 1. Set the flag: `Kantrip.MarryMe_StopBlack_NPCName` with mailReceived. This prevents the default BLACK event from playing later (if enabled).
-2. Do the engagement on a YES: `action Kantrip.SweetActions_DoEngagement NPCName`
-3. (optional) Do a breakup on a NO: `action Kantrip.SweetActions_DoBreakup NPCName`
+2. Do the engagement on a YES: `action Kantrip.HeartActions_DoEngagement NPCName`
+3. (optional) Do a breakup on a NO: `action Kantrip.HeartActions_DoBreakup NPCName`
 
 Example: Any proposal event in [CP] Marry Me. You are welcome to copy/use as much of the code in `data\DefaultProposal.json` as you want.
 

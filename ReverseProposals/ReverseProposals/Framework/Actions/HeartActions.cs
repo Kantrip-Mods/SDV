@@ -7,10 +7,10 @@ using StardewValley.Triggers;
 using StardewValley.Delegates;
 using StardewValley.Events;
 
-namespace ReverseProposals.SweetActions;
+namespace ReverseProposals.HeartActions;
 
 /// <summary>The mod entry point.</summary>
-internal sealed class SweetActions
+internal sealed class HeartActions
 {
     /*********
     ** Public methods
@@ -20,9 +20,9 @@ internal sealed class SweetActions
 
     internal static void Register()
     {
-        TriggerActionManager.RegisterAction("Kantrip.SweetActions_DoDating", DoDating);
-        TriggerActionManager.RegisterAction("Kantrip.SweetActions_DoBreakup", DoBreakup);
-        TriggerActionManager.RegisterAction("Kantrip.SweetActions_DoEngagement", DoEngagement);
+        TriggerActionManager.RegisterAction("Kantrip.HeartActions_DoDating", DoDating);
+        TriggerActionManager.RegisterAction("Kantrip.HeartActions_DoBreakup", DoBreakup);
+        TriggerActionManager.RegisterAction("Kantrip.HeartActions_DoEngagement", DoEngagement);
     }
     /*********
     ** Private methods
@@ -33,7 +33,7 @@ internal sealed class SweetActions
         // get args
         if (!ArgUtility.TryGet(args, 1, out string npcName, out error, allowBlank: false))
         {
-            error = "Usage: Kantrip.SweetActions_DoEngagement <NPC Name>";
+            error = "Usage: Kantrip.HeartActions_DoEngagement <NPC Name>";
             return false;
         }
 
@@ -78,7 +78,7 @@ internal sealed class SweetActions
         // get args
         if (!ArgUtility.TryGet(args, 1, out string npcName, out error, allowBlank: false))
         {
-            error = "Usage: Kantrip.SweetActions_DoDating <NPC Name>";
+            error = "Usage: Kantrip.HeartActions_DoDating <NPC Name>";
             return false;
         }
 
@@ -126,7 +126,7 @@ internal sealed class SweetActions
         // get args
         if (!ArgUtility.TryGet(args, 1, out string npcName, out error, allowBlank: false))
         {
-            error = "Usage: Kantrip.SweetActions_DoBreakup <NPC Name>";
+            error = "Usage: Kantrip.HeartActions_DoBreakup <NPC Name>";
             return false;
         }
 
