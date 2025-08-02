@@ -40,7 +40,7 @@ public class ModEntry : Mod
 {
     internal ModConfig config;
 
-    public static IContentPatcherAPI api = null;
+    //public static IContentPatcherAPI api;
     internal static SuitorsToken SuitorsToken { get; private set; } = new SuitorsToken();
     internal static MaxHeartSuitorsToken MaxHeartSuitorsToken { get; private set; } = new MaxHeartSuitorsToken();
     internal static RivalSuitorsToken RivalSuitorsToken { get; private set; } = new RivalSuitorsToken();
@@ -61,11 +61,33 @@ public class ModEntry : Mod
         RegisterActions();
 
         Globals.Helper.Events.GameLoop.GameLaunched += OnGameLaunched;
+        Globals.Helper.Events.GameLoop.DayStarted += OnDayStarted;
+        Globals.Helper.Events.GameLoop.SaveLoaded += OnSaveLoaded;
     }
 
-    private static void OnGameLaunched(object sender, GameLaunchedEventArgs e)
+    private static void OnGameLaunched(object? sender, GameLaunchedEventArgs e)
     {
+        Globals.Monitor.Log($"MM: OnGameLaunched", LogLevel.Debug);
         RegisterTokens();
+    }
+
+    private static void OnDayStarted(object? sender, DayStartedEventArgs e)
+    {
+        Globals.Monitor.Log($"MM: OnDayStarted", LogLevel.Debug);
+        //BlackHeartSuitorToken.UpdateContext();
+    }
+
+    private static void OnSaveLoaded(object? sender, SaveLoadedEventArgs e)
+    {
+        Globals.Monitor.Log($"MM: OnSaveLoaded", LogLevel.Debug);
+        //SuitorsToken.UpdateContext();
+        MaxHeartSuitorsToken.UpdateContext();
+        //RivalSuitorsToken.UpdateContext();
+        //PartnerToken.UpdateContext();
+        //FianceeToken.UpdateContext();
+        //BlackHeartSuitorToken.UpdateContext();
+
+        MaxHeartSuitorsToken.Debug();
     }
 
     public static void RegisterActions()
@@ -80,12 +102,12 @@ public class ModEntry : Mod
 
         if (api != null)
         {
-            api.RegisterToken(Globals.Manifest, "Suitors", SuitorsToken);
+            //api.RegisterToken(Globals.Manifest, "Suitors", SuitorsToken);
             api.RegisterToken(Globals.Manifest, "MaxHeartSuitors", MaxHeartSuitorsToken);
-            api.RegisterToken(Globals.Manifest, "RivalSuitors", RivalSuitorsToken);
-            api.RegisterToken(Globals.Manifest, "Partner", PartnerToken);
-            api.RegisterToken(Globals.Manifest, "Fiancee", FianceeToken);
-            api.RegisterToken(Globals.Manifest, "BlackHeartSuitor", BlackHeartSuitorToken);
+            //api.RegisterToken(Globals.Manifest, "RivalSuitors", RivalSuitorsToken);
+            //api.RegisterToken(Globals.Manifest, "Partner", PartnerToken);
+            //api.RegisterToken(Globals.Manifest, "Fiancee", FianceeToken);
+            //api.RegisterToken(Globals.Manifest, "BlackHeartSuitor", BlackHeartSuitorToken);
 
             Globals.Monitor.Log($"Finished registering sweet tokens");
         }

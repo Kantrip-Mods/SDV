@@ -1,4 +1,3 @@
-using System.Formats.Asn1;
 using StardewModdingAPI;
 using StardewValley;
 
@@ -6,35 +5,39 @@ namespace ReverseProposals.SweetTokens;
 
 //Returns a list of suitors currently at 10 hearts, filtered by type (vanilla, custom, needsDefault, all)
 //Will not include modded NPCs if they are not enabled by their mod owners
-internal class MaxHeartSuitorsToken : BaseToken
+internal class MaxHeartSuitorsToken : AbstractNPCToken
 {
     /*********
     ** Fields
     *********/
-    internal static string[] vanillaSuitors = new string[12]
-    {
-            "Abigail", "Alex", "Elliott", "Emily", "Haley", "Harvey", "Leah", "Maru", "Penny", "Sam", "Shane", "Sebastian"
-    };
-
     /// <summary>The list of suitors as of the last context update.</summary>
-    internal List<NPC> cachedSuitors = new List<NPC>();
+    //internal List<NPC> cachedSuitors = new List<NPC>();
 
     public MaxHeartSuitorsToken()
     {
     }
     internal void Debug()
     {
+        if (this.tokenCache == null || this.tokenCache.Count == 0)
+        {
+            Globals.Monitor.Log($"10 heart suitors (cached): NONE", LogLevel.Debug);
+            return;
+        }
+
+        List<string> cached = GetCachedNames();
         List<string> vanilla = TryFilterNames("vanilla");
         List<string> custom = TryFilterNames("custom");
         List<string> noEvent = TryFilterNames("noevent");
         List<string> all = TryFilterNames("all");
 
         string sep = ",";
+        var cachedNames = string.Join(sep, cached);
         var vanillaNames = string.Join(sep, vanilla);
         var customNames = string.Join(sep, custom);
         var noEventNames = string.Join(sep, noEvent);
         var allNames = string.Join(sep, all);
 
+        Globals.Monitor.Log($"10 heart suitors (cached): {cachedNames}, count = {cached.Count}", LogLevel.Debug);
         Globals.Monitor.Log($"10 heart suitors (vanilla): {vanillaNames}, count = {vanilla.Count}", LogLevel.Debug);
         Globals.Monitor.Log($"10 heart suitors (custom): {customNames}, count = {custom.Count}", LogLevel.Debug);
         Globals.Monitor.Log($"10 heart suitors (noevent): {noEventNames}, count = {noEvent.Count}", LogLevel.Debug);
@@ -43,9 +46,9 @@ internal class MaxHeartSuitorsToken : BaseToken
 
     /// <summary>Whether the token may return multiple values for the given input.</summary>
     /// <param name="input">The input arguments, if applicable.</param>
-    public override bool CanHaveMultipleValues(string input = null)
+    public override bool CanHaveMultipleValues(string? input)
     {
-        return (cachedSuitors.Count > 1);
+        return true;
     }
 
     public override bool RequiresInput()
@@ -53,27 +56,27 @@ internal class MaxHeartSuitorsToken : BaseToken
         return true;
     }
 
+    //public override bool IsReady()
+    //{
+    //    return this.tokenCache != null && this.tokenCache.Count > 0;
+    //}
+
     protected override bool DidDataChange()
     {
-        //Globals.Monitor.Log($"MaxHeartSuitorsToken: DidDataChange()", LogLevel.Debug);
+        Globals.Monitor.Log($"MaxHeartSuitorsToken: DidDataChange()", LogLevel.Debug);
 
         bool hasChanged = false;
-        List<NPC> suitors = new();
+        List<NPC> suitors = GetMaxHeartSuitors();
 
-        GetMaxHeartSuitors(ref suitors);
-
-        //Globals.Monitor.Log($"suitors.Count: {suitors.Count}, cachedSuitors.Count: {cachedSuitors.Count}", LogLevel.Debug);
-
-        if (suitors.Count != cachedSuitors.Count)
+        if (this.tokenCache == null)
         {
             hasChanged = true;
         }
-
-        if (!hasChanged)
+        else
         {
             foreach (NPC npc in suitors)
             {
-                if (!cachedSuitors.Contains(npc))
+                if (!this.tokenCache.Contains(npc))
                 {
                     hasChanged = true;
                     break;
@@ -83,17 +86,23 @@ internal class MaxHeartSuitorsToken : BaseToken
 
         if (hasChanged)
         {
-            cachedSuitors.Clear();
-            cachedSuitors = suitors;
+            this.tokenCache = suitors;
         }
-        //Globals.Monitor.Log($"suitors.Count: {suitors.Count}, cachedSuitors.Count: {cachedSuitors.Count}", LogLevel.Debug);
-        //Globals.Monitor.Log($"hasChanged: {hasChanged}", LogLevel.Debug);
+        int ct = (this.tokenCache != null) ? this.tokenCache.Count : 0;
+        Globals.Monitor.Log($"num cached suitors for {Game1.player.Name}: {ct}", LogLevel.Debug);
+        Globals.Monitor.Log($"hasChanged: {hasChanged}", LogLevel.Debug);
         return hasChanged;
     }
 
-    public override bool TryValidateInput(string input, out string error)
+    public override bool TryValidateInput(string? input, out string error)
     {
         error = "";
+        if (input == null)
+        {
+            error += "A 'type' argument is required for this token.";
+            return false;
+        }
+
         string[] args = input.ToLower().Trim().Split('|');
 
         if (args.Length == 1)
@@ -118,16 +127,26 @@ internal class MaxHeartSuitorsToken : BaseToken
         }
         else
         {
-            error += "Incorrect number of arguments provided. A 'type' argument is required. ";
+            error += "Incorrect number of arguments provided.";
         }
 
         return error.Equals("");
     }
 
     /// <summary>Get the current values.</summary>
-    public override IEnumerable<string> GetValues(string input)
+    public override IEnumerable<string> GetValues(string? input)
     {
-        List<string> output = new();
+        Globals.Monitor.Log($"GetValues MXST", LogLevel.Debug);
+
+        if (input == null)
+        {
+            yield break;
+        }
+
+        Globals.Monitor.Log($"input: {input}", LogLevel.Debug);
+        this.Debug();
+
+        List<string> output = new();        
 
         string[] args = input.Split('|');
 
@@ -147,9 +166,15 @@ internal class MaxHeartSuitorsToken : BaseToken
     private List<string> TryFilterNames(string type)
     {
         List<string> output = new();
+
+        if (this.tokenCache == null || this.tokenCache.Count == 0)
+        {
+            return output;    
+        }
+
         if (type == "custom")
         {
-            foreach (NPC npc in cachedSuitors)
+            foreach (NPC npc in this.tokenCache)
             {
                 if (!vanillaSuitors.Contains(npc.Name))
                 {
@@ -159,7 +184,7 @@ internal class MaxHeartSuitorsToken : BaseToken
         }
         else if (type == "noevent")
         {
-            foreach (NPC npc in cachedSuitors)
+            foreach (NPC npc in this.tokenCache)
             {
                 if (vanillaSuitors.Contains(npc.Name))
                 {
@@ -168,7 +193,7 @@ internal class MaxHeartSuitorsToken : BaseToken
 
                 //Check fit hey have a white event specified. If not, then they are requesting the default event play for their NPC
                 StardewValley.GameData.Characters.CharacterData data = npc.GetData();
-                if (data != null && data.CustomFields != null && data.CustomFields.TryGetValue("Kantrip.ReverseProposals/WhiteEventID", out string whiteEventId))
+                if (data != null && data.CustomFields != null && data.CustomFields.TryGetValue("Kantrip.ReverseProposals/WhiteEventID", out string? whiteEventId))
                 {
                     if (string.IsNullOrWhiteSpace(whiteEventId.Trim()))
                     {
@@ -179,7 +204,7 @@ internal class MaxHeartSuitorsToken : BaseToken
         }
         else if (type == "vanilla")
         {
-            foreach (NPC npc in cachedSuitors)
+            foreach (NPC npc in this.tokenCache)
             {
                 if (vanillaSuitors.Contains(npc.Name))
                 {
@@ -189,54 +214,11 @@ internal class MaxHeartSuitorsToken : BaseToken
         }
         else if (type == "all")
         {
-            foreach (NPC npc in cachedSuitors)
+            foreach (NPC npc in this.tokenCache)
             {
                 output.Add(npc.Name);
             }
         }
         return output;
-    }
-
-    // get names
-    private void GetMaxHeartSuitors(ref List<NPC> suitors)
-    {
-        //Globals.Monitor.Log($"MaxHeartSuitors Token: GetMaxHeartSuitors() called", LogLevel.Debug);
-
-        Farmer farmer = Game1.player;
-        foreach (string name in farmer.friendshipData.Keys)
-        {
-            NPC npc = Game1.getCharacterFromName(name);
-            if (npc == null)
-            {
-                continue;
-            }
-
-            Friendship friendship = farmer.friendshipData[name];
-            if (npc.isMarried() || !friendship.IsDating())
-            {
-                //Globals.Monitor.Log($"{{npc.Name}} is not dating {Game1.player.Name}", LogLevel.Debug);
-                continue;
-            }
-
-            int hearts = friendship.Points / 250;
-            if (hearts >= 10)
-            {
-                StardewValley.GameData.Characters.CharacterData data = npc.GetData();
-                bool isVanilla = vanillaSuitors.Contains(npc.Name);
-                bool isAllowed = false;
-                if (data != null && data.CustomFields != null && data.CustomFields.TryGetValue("Kantrip.ReverseProposals/Allow", out string proposalAllowed))
-                {
-                    if (proposalAllowed.ToLower().Trim() == "true")
-                    {
-                        isAllowed = true;
-                    }
-                }
-
-                if (isVanilla || isAllowed)
-                {
-                    suitors.Add(npc);
-                }
-            }
-        }
     }
 }

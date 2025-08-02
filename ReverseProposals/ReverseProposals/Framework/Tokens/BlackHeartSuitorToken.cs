@@ -1,11 +1,13 @@
+using System.Linq.Expressions;
 using StardewModdingAPI;
 using StardewValley;
+using StardewValley.Buildings;
 
 namespace ReverseProposals.SweetTokens;
 
 //Returns a single suitor currently at 10 hearts, filtered by weather for their event
 //Will filter out modded NPCs if they are not enabled by their mod owners
-internal class BlackHeartSuitorToken : BaseToken
+internal class BlackHeartSuitorToken : AbstractNPCToken
 {
     /*********
     ** Fields
@@ -16,15 +18,6 @@ internal class BlackHeartSuitorToken : BaseToken
     {
             "Elliott", "Emily", "Penny", "Sam", "Shane", "Sebastian"
     };
-
-    internal static string[] vanillaSuitors = new string[12]
-    {
-            "Abigail", "Alex", "Elliott", "Emily", "Haley", "Harvey", "Leah", "Maru", "Penny", "Sam", "Shane", "Sebastian"
-    };
-
-
-    /// <summary>The list of suitors as of the last context update.</summary>
-    internal List<NPC> cachedSuitors = new List<NPC>();
 
     public BlackHeartSuitorToken()
     {
@@ -44,7 +37,7 @@ internal class BlackHeartSuitorToken : BaseToken
 
     /// <summary>Whether the token may return multiple values for the given input.</summary>
     /// <param name="input">The input arguments, if applicable.</param>
-    public override bool CanHaveMultipleValues(string input = null)
+    public override bool CanHaveMultipleValues(string? input = null)
     {
         return false;
     }
@@ -54,25 +47,24 @@ internal class BlackHeartSuitorToken : BaseToken
         return true;
     }
 
+    //This method checks to see if the list of suitors has changed, and updates the cache if so. After calling,
+    //tokenCache is no longer null.
     protected override bool DidDataChange()
     {
         //Globals.Monitor.Log($"MaxHeartSuitorsToken: DidDataChange()", LogLevel.Debug);
 
         bool hasChanged = false;
-        List<NPC> suitors = new();
+        List<NPC> suitors = GetMaxHeartSuitors();
 
-        GetMaxHeartSuitors(ref suitors);
-
-        if (suitors.Count != cachedSuitors.Count)
+        if (this.tokenCache == null)
         {
             hasChanged = true;
         }
-
-        if (!hasChanged)
+        else
         {
             foreach (NPC npc in suitors)
             {
-                if (!cachedSuitors.Contains(npc))
+                if (!this.tokenCache.Contains(npc))
                 {
                     hasChanged = true;
                     break;
@@ -82,8 +74,7 @@ internal class BlackHeartSuitorToken : BaseToken
 
         if (hasChanged)
         {
-            cachedSuitors.Clear();
-            cachedSuitors = suitors;
+            this.tokenCache = suitors;
         }
 
         //Globals.Monitor.Log($"suitors.Count: {suitors.Count}, cachedSuitors.Count: {cachedSuitors.Count}", LogLevel.Debug);
@@ -91,9 +82,15 @@ internal class BlackHeartSuitorToken : BaseToken
         return hasChanged;
     }
 
-    public override bool TryValidateInput(string input, out string error)
+    public override bool TryValidateInput(string? input, out string error)
     {
         error = "";
+        if (input == null)
+        {
+            error += "A 'weather' argument is required for this token.";
+            return false;
+        }
+
         string[] args = input.ToLower().Trim().Split('|');
 
         if (args.Length == 1)
@@ -110,15 +107,20 @@ internal class BlackHeartSuitorToken : BaseToken
         }
         else
         {
-            error += "Incorrect number of arguments provided. A 'weather' argument is required. ";
+            error += "Incorrect number of arguments provided.";
         }
 
         return error.Equals("");
     }
 
     /// <summary>Get the current values.</summary>
-    public override IEnumerable<string> GetValues(string input)
+    public override IEnumerable<string> GetValues(string? input)
     {
+        if (input == null)
+        {
+            yield break;
+        }
+
         List<string> output = new();
 
         string[] args = input.Split('|');
@@ -145,78 +147,53 @@ internal class BlackHeartSuitorToken : BaseToken
     private List<string> TryFilterNames(string type)
     {
         List<string> output = new();
+
+        if (this.tokenCache == null || this.tokenCache.Count == 0)
+        {
+            return output;
+        }
+
+        List<string> supported = new();
+        foreach (NPC npc in this.tokenCache)
+        {
+            StardewValley.GameData.Characters.CharacterData data = npc.GetData();
+            bool isVanilla = vanillaSuitors.Contains(npc.Name);
+            bool hasCustomBlackEvent = false;
+            if (data != null && data.CustomFields != null && data.CustomFields.TryGetValue("Kantrip.ReverseProposals/BlackEventID", out string? blackEventId))
+            {
+                if (blackEventId != null && !string.IsNullOrWhiteSpace(blackEventId.Trim()))
+                {
+                    hasCustomBlackEvent = true;
+                }
+            }
+
+            if (isVanilla || !hasCustomBlackEvent)
+            {
+                supported.Add(npc.Name);
+            }
+        }
+
         if (type == "sun" || type == "wind")
         {
-            foreach (NPC npc in cachedSuitors)
+            foreach (string npcName in supported)
             {
-                if (!rainySuitors.Contains(npc.Name))
+                if (!rainySuitors.Contains(npcName))
                 {
-                    output.Add(npc.Name);
+                    output.Add(npcName);
                 }
             }
         }
         else if (type == "rain" || type == "storm" || type == "snow")
         {
-            foreach (NPC npc in cachedSuitors)
+            foreach (string npcName in supported)
             {
-                if (rainySuitors.Contains(npc.Name))
+                if (rainySuitors.Contains(npcName))
                 {
-                    output.Add(npc.Name);
+                    output.Add(npcName);
                 }
             }
         }
 
         return output;
-    }
-
-    // get names
-    private void GetMaxHeartSuitors(ref List<NPC> suitors)
-    {
-        //Globals.Monitor.Log($"MaxHeartSuitors Token: GetMaxHeartSuitors() called", LogLevel.Debug);
-
-        Farmer farmer = Game1.player;
-        foreach (string name in farmer.friendshipData.Keys)
-        {
-            NPC npc = Game1.getCharacterFromName(name);
-            if (npc == null)
-            {
-                continue;
-            }
-
-            Friendship friendship = farmer.friendshipData[name];
-            if (npc.isMarried() || !friendship.IsDating())
-            {
-                //Globals.Monitor.Log($"{{npc.Name}} is not dating {Game1.player.Name}", LogLevel.Debug);
-                continue;
-            }
-
-            int hearts = friendship.Points / 250;
-            if (hearts >= 10)
-            {
-                StardewValley.GameData.Characters.CharacterData data = npc.GetData();
-                bool isVanilla = vanillaSuitors.Contains(npc.Name);
-                bool isAllowed = false;
-                bool isSupported = false;
-                if (data != null && data.CustomFields != null && data.CustomFields.TryGetValue("Kantrip.ReverseProposals/Allow", out string proposalAllowed))
-                {
-                    if (proposalAllowed.ToLower().Trim() == "true")
-                    {
-                        isAllowed = true;
-                    }
-                }
-                if (data != null && data.CustomFields != null && data.CustomFields.TryGetValue("Kantrip.ReverseProposals/BlackEventID", out string blackEventId))
-                {
-                    if (!string.IsNullOrWhiteSpace(blackEventId.Trim()))
-                    {
-                        isSupported = true;
-                    }
-                }
-
-                if (isVanilla || (isAllowed && !isSupported)) //play this mod's default black event
-                {
-                    suitors.Add(npc);
-                }
-            }
-        }
     }
 }

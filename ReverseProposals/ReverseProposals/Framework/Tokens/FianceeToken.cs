@@ -4,22 +4,29 @@ using StardewValley;
 namespace ReverseProposals.SweetTokens;
 
 //Returns the name of the current player's Fiancee
-internal class FianceeToken : BaseToken
+internal class FianceeToken : AbstractNPCToken
 {
     /// <summary>The list of suitors as of the last context update.</summary>
-    internal string partnerName = "";
+    //internal string partnerName = "";
 
     public FianceeToken()
     {
     }
     internal void Debug()
     {
-        Globals.Monitor.Log($"Fiancee: {partnerName}", LogLevel.Debug);
+        if (this.tokenCache == null || this.tokenCache.Count == 0)
+        {
+            Globals.Monitor.Log($"No current fiance for {Game1.player.Name}", LogLevel.Debug);
+        }
+        else
+        {
+            Globals.Monitor.Log($"Fiancee: {this.tokenCache.First().Name}", LogLevel.Debug);
+        }
     }
 
     /// <summary>Whether the token may return multiple values for the given input.</summary>
     /// <param name="input">The input arguments, if applicable.</param>
-    public override bool CanHaveMultipleValues(string input = null)
+    public override bool CanHaveMultipleValues(string? input)
     {
         return false;
     }
@@ -31,18 +38,25 @@ internal class FianceeToken : BaseToken
 
     protected override bool DidDataChange()
     {
-        //Globals.Monitor.Log($"MaxHeartSuitorsToken: DidDataChange()", LogLevel.Debug);
-
         bool hasChanged = false;
-        string partner = "";
-        GetFiancee(ref partner);
+        NPC? fiancee = GetFiancee();
 
-        //Globals.Monitor.Log($"suitors.Count: {suitors.Count}, cachedSuitors.Count: {cachedSuitors.Count}", LogLevel.Debug);
-
-        if (partner != partnerName)
+        if (this.tokenCache == null)
         {
             hasChanged = true;
-            partnerName = partner;
+        }
+        else if( fiancee != null && !this.tokenCache.Contains(fiancee))
+        {
+            hasChanged = true;
+        }
+
+        if (hasChanged)
+        {
+            this.tokenCache = new List<NPC>();
+            if (fiancee != null)
+            {
+                this.tokenCache.Add(fiancee);
+            }
         }
 
         //Globals.Monitor.Log($"suitors.Count: {suitors.Count}, cachedSuitors.Count: {cachedSuitors.Count}", LogLevel.Debug);
@@ -50,26 +64,25 @@ internal class FianceeToken : BaseToken
         return hasChanged;
     }
 
-    public override bool TryValidateInput(string input, out string error)
+    public override bool TryValidateInput(string? input, out string error)
     {
         error = "";
         return error.Equals("");
     }
 
     /// <summary>Get the current values.</summary>
-    public override IEnumerable<string> GetValues(string input)
+    public override IEnumerable<string> GetValues(string? input)
     {
-        bool found = (partnerName != "");
-        if (!found)
+        if (this.tokenCache == null || this.tokenCache.Count == 0) 
         {
             yield break;
         }
 
-        yield return partnerName;
+        yield return this.tokenCache.First().Name;
     }
 
     // get names
-    private void GetFiancee(ref string partner)
+    private NPC? GetFiancee()
     {
         //Globals.Monitor.Log($"RivalSuitors Token: GetSuitors() called", LogLevel.Debug);
 
@@ -86,9 +99,10 @@ internal class FianceeToken : BaseToken
             if (friendship.IsEngaged())
             {
                 //Globals.Monitor.Log($"{{npc.Name}} is not dating {Game1.player.Name}", LogLevel.Debug);
-                partner = npc.Name;
-                break;
+                return npc;
             }
         }
+
+        return null;
     }
 }
