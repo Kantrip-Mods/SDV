@@ -1,7 +1,7 @@
 {
     "Name": "Reverse Proposals",
     "Author": "Kantrip",
-    "Version": "1.1.3",
+    "Version": "1.2",
     "Description": "Actions, Tokens, etc needed for MarryMe: Reverse Wedding Proposals",
     "UniqueID": "Kantrip.ReverseProposals",
     "EntryDll": "ReverseProposals.dll",

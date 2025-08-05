@@ -79,16 +79,18 @@ internal abstract class AbstractNPCToken
     //public abstract bool UpdateContext();
     public virtual bool UpdateContext()
     {
-        Globals.Monitor.Log($"UpdateContext called", LogLevel.Debug);
         bool hasChanged = false;
 
-		if (SaveGame.loaded != null || Context.IsWorldReady)
+		if (Context.IsWorldReady)
 		{
 			hasChanged = DidDataChange();
 		}
 
-        Globals.Monitor.Log($"UpdateContext called. hasChanged: {hasChanged}", LogLevel.Debug);
-        Globals.Monitor.Log($"IsReady? : {this.IsReady()}", LogLevel.Debug);
+        if (Globals.Config.ExtraDebugging)
+        {
+            Globals.Monitor.Log($"UpdateContext called. hasChanged: {hasChanged}", LogLevel.Debug);
+            Globals.Monitor.Log($"IsReady? : {this.IsReady()}", LogLevel.Debug);
+        }
 
         return hasChanged;
     }
@@ -156,7 +158,6 @@ internal abstract class AbstractNPCToken
     //This should probably just get all the NPCs at 10 hearts. TryFilterNames should filter according to customfields?
     protected static List<NPC> GetMaxHeartSuitors()
     {
-        //Globals.Monitor.Log($"MaxHeartSuitors Token: GetMaxHeartSuitors() called", LogLevel.Debug);
         List<NPC> suitors = new List<NPC>();
 
         Farmer farmer = Game1.player;
@@ -167,9 +168,6 @@ internal abstract class AbstractNPCToken
             {
                 continue;
             }
-
-            //Globals.Monitor.Log($"Testing {npc.Name}", LogLevel.Debug);
-
 
             Friendship friendship = farmer.friendshipData[name];
             if (npc.isMarried() || !friendship.IsDating())
@@ -191,29 +189,16 @@ internal abstract class AbstractNPCToken
                         isAllowed = true;
                     }
                 }
-                /*
-                if (data != null && data.CustomFields != null && data.CustomFields.TryGetValue("Kantrip.ReverseProposals/BlackEventID", out string? blackEventId))
-                {
-                    if (blackEventId != null && !string.IsNullOrWhiteSpace(blackEventId.Trim()))
-                    {
-                        isSupported = true;
-                    }
-                }
-                */
-
-                //Globals.Monitor.Log($"{npc.Name} is a candidate", LogLevel.Debug);
 
                 if (isVanilla || isAllowed) //play this mod's default black event
                 {
-                    //Globals.Monitor.Log($"{npc.Name} is good", LogLevel.Debug);
-
                     suitors.Add(npc);
                 }
             }
         }
 
         //return suitors.Count > 0 ? suitors : null;
-        Globals.Monitor.Log($"num found: {suitors.Count}", LogLevel.Debug);
+        //Globals.Monitor.Log($"num found: {suitors.Count}", LogLevel.Debug);
 
         return suitors.Count > 0 ? suitors : Enumerable.Empty<NPC>().ToList();
     }

@@ -121,6 +121,12 @@ internal class BlackHeartSuitorToken : AbstractNPCToken
             yield break;
         }
 
+        if (Globals.Config.ExtraDebugging)
+        {
+            Globals.Monitor.Log($"input: {input}", LogLevel.Debug);
+            this.Debug();
+        }
+        
         List<string> output = new();
 
         string[] args = input.Split('|');

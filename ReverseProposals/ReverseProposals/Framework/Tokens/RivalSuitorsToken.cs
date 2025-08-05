@@ -67,7 +67,7 @@ internal class RivalSuitorsToken : AbstractNPCToken
         error = "";
         if (input == null)
         {
-            error += "A 'weather' argument is required for this token.";
+            error += "A 'for' argument is required for this token (a suitor's name).";
             return false;
         }
 
@@ -128,6 +128,12 @@ internal class RivalSuitorsToken : AbstractNPCToken
         if (input == null)
         {
             yield break;
+        }
+
+        if (Globals.Config.ExtraDebugging)
+        {
+            Globals.Monitor.Log($"input: {input}", LogLevel.Debug);
+            this.Debug();
         }
 
         List<string> output = new();

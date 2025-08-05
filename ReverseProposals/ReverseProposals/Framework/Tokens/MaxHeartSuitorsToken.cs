@@ -63,7 +63,7 @@ internal class MaxHeartSuitorsToken : AbstractNPCToken
 
     protected override bool DidDataChange()
     {
-        Globals.Monitor.Log($"MaxHeartSuitorsToken: DidDataChange()", LogLevel.Debug);
+        //Globals.Monitor.Log($"MaxHeartSuitorsToken: DidDataChange()", LogLevel.Debug);
 
         bool hasChanged = false;
         List<NPC> suitors = GetMaxHeartSuitors();
@@ -88,9 +88,10 @@ internal class MaxHeartSuitorsToken : AbstractNPCToken
         {
             this.tokenCache = suitors;
         }
-        int ct = (this.tokenCache != null) ? this.tokenCache.Count : 0;
-        Globals.Monitor.Log($"num cached suitors for {Game1.player.Name}: {ct}", LogLevel.Debug);
-        Globals.Monitor.Log($"hasChanged: {hasChanged}", LogLevel.Debug);
+
+        //int ct = (this.tokenCache != null) ? this.tokenCache.Count : 0;
+        //Globals.Monitor.Log($"num cached suitors for {Game1.player.Name}: {ct}", LogLevel.Debug);
+        //Globals.Monitor.Log($"hasChanged: {hasChanged}", LogLevel.Debug);
         return hasChanged;
     }
 
@@ -136,15 +137,18 @@ internal class MaxHeartSuitorsToken : AbstractNPCToken
     /// <summary>Get the current values.</summary>
     public override IEnumerable<string> GetValues(string? input)
     {
-        Globals.Monitor.Log($"GetValues MXST", LogLevel.Debug);
+        //Globals.Monitor.Log($"GetValues MXST", LogLevel.Debug);
 
         if (input == null)
         {
             yield break;
         }
 
-        Globals.Monitor.Log($"input: {input}", LogLevel.Debug);
-        this.Debug();
+        if (Globals.Config.ExtraDebugging)
+        {
+            Globals.Monitor.Log($"input: {input}", LogLevel.Debug);
+            this.Debug();
+        }
 
         List<string> output = new();        
 

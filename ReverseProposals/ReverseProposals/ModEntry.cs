@@ -1,16 +1,6 @@
 // Copyright (C) 2025 Kantrip
 // This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-// 
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-// 
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see https://www.gnu.org/licenses/.
+// it under the terms of the MIT Software License. See LICENSE for details
 
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
@@ -61,33 +51,30 @@ public class ModEntry : Mod
         RegisterActions();
 
         Globals.Helper.Events.GameLoop.GameLaunched += OnGameLaunched;
-        Globals.Helper.Events.GameLoop.DayStarted += OnDayStarted;
+        //Globals.Helper.Events.GameLoop.DayStarted += OnDayStarted;
         Globals.Helper.Events.GameLoop.SaveLoaded += OnSaveLoaded;
     }
 
     private static void OnGameLaunched(object? sender, GameLaunchedEventArgs e)
     {
-        Globals.Monitor.Log($"MM: OnGameLaunched", LogLevel.Debug);
+        //Globals.Monitor.Log($"MM: OnGameLaunched", LogLevel.Debug);
         RegisterTokens();
     }
 
-    private static void OnDayStarted(object? sender, DayStartedEventArgs e)
-    {
-        Globals.Monitor.Log($"MM: OnDayStarted", LogLevel.Debug);
-        //BlackHeartSuitorToken.UpdateContext();
-    }
+    //private static void OnDayStarted(object? sender, DayStartedEventArgs e)
+    //{
+    //    Globals.Monitor.Log($"MM: OnDayStarted", LogLevel.Debug);
+    //}
 
     private static void OnSaveLoaded(object? sender, SaveLoadedEventArgs e)
     {
-        Globals.Monitor.Log($"MM: OnSaveLoaded", LogLevel.Debug);
-        //SuitorsToken.UpdateContext();
+        //Globals.Monitor.Log($"MM: OnSaveLoaded", LogLevel.Debug);
+        SuitorsToken.UpdateContext();
         MaxHeartSuitorsToken.UpdateContext();
-        //RivalSuitorsToken.UpdateContext();
-        //PartnerToken.UpdateContext();
-        //FianceeToken.UpdateContext();
-        //BlackHeartSuitorToken.UpdateContext();
-
-        MaxHeartSuitorsToken.Debug();
+        RivalSuitorsToken.UpdateContext();
+        PartnerToken.UpdateContext();
+        FianceeToken.UpdateContext();
+        BlackHeartSuitorToken.UpdateContext();
     }
 
     public static void RegisterActions()
@@ -102,12 +89,12 @@ public class ModEntry : Mod
 
         if (api != null)
         {
-            //api.RegisterToken(Globals.Manifest, "Suitors", SuitorsToken);
+            api.RegisterToken(Globals.Manifest, "Suitors", SuitorsToken);
             api.RegisterToken(Globals.Manifest, "MaxHeartSuitors", MaxHeartSuitorsToken);
-            //api.RegisterToken(Globals.Manifest, "RivalSuitors", RivalSuitorsToken);
-            //api.RegisterToken(Globals.Manifest, "Partner", PartnerToken);
-            //api.RegisterToken(Globals.Manifest, "Fiancee", FianceeToken);
-            //api.RegisterToken(Globals.Manifest, "BlackHeartSuitor", BlackHeartSuitorToken);
+            api.RegisterToken(Globals.Manifest, "RivalSuitors", RivalSuitorsToken);
+            api.RegisterToken(Globals.Manifest, "Partner", PartnerToken);
+            api.RegisterToken(Globals.Manifest, "Fiancee", FianceeToken);
+            api.RegisterToken(Globals.Manifest, "BlackHeartSuitor", BlackHeartSuitorToken);
 
             Globals.Monitor.Log($"Finished registering sweet tokens");
         }

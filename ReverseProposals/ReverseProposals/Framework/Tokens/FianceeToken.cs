@@ -73,7 +73,12 @@ internal class FianceeToken : AbstractNPCToken
     /// <summary>Get the current values.</summary>
     public override IEnumerable<string> GetValues(string? input)
     {
-        if (this.tokenCache == null || this.tokenCache.Count == 0) 
+        if (Globals.Config.ExtraDebugging)
+        {
+            this.Debug();
+        }
+
+        if (this.tokenCache == null || this.tokenCache.Count == 0)
         {
             yield break;
         }
