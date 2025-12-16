@@ -25,6 +25,37 @@ This mod will handle or ignore custom NPCs based on the following logic:
 ```
 
 2. Enable Reverse Proposal support by adding the following custom fields to Data/Characters:
+If you are creating a custom NPC with Content Patcher, you should already be modifying Data/Characters somewhere. The entry will look something like this:
+```json
+ "Action": "EditData",
+      "Target": "Data/Characters",
+      "Entries": {
+        "Olivia": {
+          "DisplayName": "{{i18n:Name.Olivia}}",
+          "BirthSeason": "Spring",
+          "BirthDay": 15,
+          "Gender": "Female",
+...
+```
+
+To just enable the default proposal, all you should have to do is add this to the same entry:
+```
+      "Action": "EditData",
+      "Target": "Data/Characters",
+      "Entries": {
+        "Olivia": {
+          "DisplayName": "{{i18n:Name.Olivia}}",
+          "BirthSeason": "Spring",
+          "BirthDay": 15,
+          "Gender": "Female",
+          "CustomFields": {
+                    "Kantrip.ReverseProposals/Allow": "true", // this is the only one required for the mod to provide default black and white events 
+         },
+```
+
+If you already have an entry for "CustomFields", just add that key into the mix.
+
+There are three keys that ReverseProposals will check for. They are as follows:
 ```json
     "CustomFields": {
         "Kantrip.ReverseProposals/Allow": "true",   // this is the only one required for the mod to provide default black and white events
@@ -50,6 +81,11 @@ Right now, I don't actuall do anything with the EventIds, but I may in the futur
             "AddMail Current {{ModId}}_StartAbigail Received",
         ]
     },
+```
+
+You could also set the flag within a different event (if, for example, you want the proposal event to become active after they've seen your custom 10 heart event):
+```json
+/mailReceived Kantrip.MarryMe_Start<NPCName>
 ```
 
 I don't know what your mod's 10 heart event is, and that might not be when you want the reverse proposal to trigger anyway. **If you want the default events to fire, set this flag when it would be appropriate for your NPC.**
