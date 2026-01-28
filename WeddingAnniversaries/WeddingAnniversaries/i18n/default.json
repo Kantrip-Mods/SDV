@@ -5,6 +5,9 @@
     "AnniversaryReminder.0": "Don't forget our anniversary is in a week.$h#$b#Hmmmmm... now what should I get you this year?",
     "AnniversaryReminder.1": "Hey @, guess what? Our anniversary is next week!$h#$b#I know, I'm excited too.",
     "AnniversaryReminder.2": "Make sure to come home early next week, @ -- it's our anniversary!#$b#I've been waiting ages to give you your gift.$h",
+    "Bad.Reminder.0": "Our anniversary is coming up soon. Not that you care.$a",
+    "Bad.Reminder.1": "*sigh* Has it been another year already?$s",
+    "Bad.Reminder.2": "Should I bother with an anniversary gift this year, or are you just going to stay out all night again?$s",
     
     "Default.Anniversary.0": "Happy anniversary, darling.$l",
     "Default.Anniversary.1": "Happy anniversary, @. Thank you for being mine.$l",
@@ -101,8 +104,8 @@
     "Bad.gifts": "(O)196 (O)167 (O)194 (O)18 (O)22 (O)402 (O)418 (O)206 Book_Friendship (F)1402",
     
     "Abigail.gifts": "(TR)MagicHairDye (O)859 AbigailsBow (W)40 (F)WizardTable (H)51",
-    "Alex.gifts": "(TR)MagicHairDye (W)25 (O)521 (O)191 (F)1762 (H)20",
-    "Elliott.gifts": "(W)35 (O)859 TricornHat (O)191 (F)1748 (F)2421",
+    "Alex.gifts": "(TR)MagicHairDye (W)25 (O)521 (F)RetroTV (F)1762 (H)20",
+    "Elliott.gifts": "(W)35 (O)859 TricornHat (O)PurpleBook (F)1748 (F)2421",
     "Emily.gifts": "(W)3 (O)524 (S)1052 (O)74 (S)1039 (H)41",
     "Haley.gifts": "(W)42 (O)525 ArtPhoto ArtPhoto2 (O)221 (H)47 (F)1974",
     "Harvey.gifts": "(W)37 (O)860 RadioDesk ModelPlanes (F)724 (H)89",
@@ -112,4 +115,4 @@
     "Sam.gifts": "SamsSkateboard (W)30 (O)859 (H)JojaCap (F)1309 (F)JojaColaTeaTable",
     "Sebastian.gifts": "(W)41 (O)862 (F)1289 (F)1563 (F)1600 (H)78",
     "Shane.gifts": "ChickenDecal (O)863 (S)1246 (S)1180 (H)10 (F)1960 (F)1761",
-}    
+} 

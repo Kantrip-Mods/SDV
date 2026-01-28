@@ -1,12 +1,7 @@
 # PATCH NOTES 
-* Version 2.0.2
+* Version 2.1
 
 ## CHANGES
 ## FIXES
-* Changed gift lists for a couple of the bachelors/bachelorettes
-- Elliott (remove Stardew Valley Rose, remove Crabshell Ring, add Lucky Ring)
-- Sebastian (remove Dark Velvet Bow, add Frog Hat, remove Vampire Ring, add Soul Sapper Ring)
-- Shane (add Tunneler's jersey shirt)
-- Sam (remove jukebox ring, add Lucky Ring)
-- Maru (remove Napalm ring, add Lucky Ring)
-- Emily (added Holy Blade)
+* Added bad anniversary reminders (default), plus support for custom NPC bad reminders
+- i18n: Three new bad anniversary reminder lines are included now by default. If these are missing in an older translation file, I will use the default ones.

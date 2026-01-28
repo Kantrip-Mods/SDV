@@ -95,14 +95,14 @@
     "Penny.Anniversary.4": "¡Feliz aniversario, @!$h#$b#Estuve hablando con los niños sobre ello ayer. ¡Vincent intentó darme un caracol para regalártelo!#$b#Lo dejé en libertad en nuestro jardín. Espero que esto sirva en su lugar.$l",
 
     //Gifts Lists -- DON'T TRANSLATE THESE!!!
-
+    
     "Default.gifts": "62 72 797 595 StardropTea 221 873 525 527 521 PurpleBook SkillBook_0",
     
     "Bad.gifts": "(O)196 (O)167 (O)194 (O)18 (O)22 (O)402 (O)418 (O)206 Book_Friendship (F)1402",
     
     "Abigail.gifts": "(TR)MagicHairDye (O)859 AbigailsBow (W)40 (F)WizardTable (H)51",
-    "Alex.gifts": "(TR)MagicHairDye (W)25 (O)521 (O)191 (F)1762 (H)20",
-    "Elliott.gifts": "(W)35 (O)859 TricornHat (O)191 (F)1748 (F)2421",
+    "Alex.gifts": "(TR)MagicHairDye (W)25 (O)521 (F)RetroTV (F)1762 (H)20",
+    "Elliott.gifts": "(W)35 (O)859 TricornHat (O)PurpleBook (F)1748 (F)2421",
     "Emily.gifts": "(W)3 (O)524 (S)1052 (O)74 (S)1039 (H)41",
     "Haley.gifts": "(W)42 (O)525 ArtPhoto ArtPhoto2 (O)221 (H)47 (F)1974",
     "Harvey.gifts": "(W)37 (O)860 RadioDesk ModelPlanes (F)724 (H)89",

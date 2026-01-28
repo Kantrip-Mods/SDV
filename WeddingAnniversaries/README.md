@@ -58,6 +58,7 @@ Here's an example from my dialogue mod, Older Sebastian:
 ## Dialogue Keys
 This mod respects the following dialogue keys, where **[NPC]** is the NPC's name (e.g. "Abigail", "Harvey", etc):
 * **Reminder_[NPC]** : This is the text that will show a week in advance of the NPC spouse's anniversary with the player
+* **Reminder_[NPC]_Bad** : The anniversary reminder if the player is at less than 9 hearts with the NPC spouse
 * **Anniversary_[NPC]** : The anniversary day greeting
 * **Anniversary_[NPC]_Bad** : The anniversary day greeting if the player is at less than 9 hearts with the NPC spouse
 * **Gifts_[NPC]** : A space-separated list of object IDs. One will be randomly selected to give to the player on the anniversary day
@@ -70,6 +71,7 @@ Special thanks to:
 * ApryllForever, who helped me figure out what was required to make this work with hers (and who put in a bunch of work on my behalf)
 * TheMightyAmondee, who created a new custom token to make the first version of this mod work
 * Mushymato, who gently pointed me in the right direction on several occasions.
+* Roonya for suggeted adding Bad anniversary reminders (and helped me test it on custom NPCs!)
 
 ## Included Translations
 * Spanish: thanks and credit to Nexus user devy003

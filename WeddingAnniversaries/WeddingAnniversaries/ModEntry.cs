@@ -34,7 +34,7 @@ namespace WeddingAnniversaries
         {
             help = helper;
             
-            readAnniversaryReminders();
+            //readAnniversaryReminders();
 
             this.Config = this.Helper.ReadConfig<ModConfig>();
             helper.Events.Content.AssetRequested += this.OnAssetRequested;
@@ -86,11 +86,32 @@ namespace WeddingAnniversaries
         }
 
         /// Called once to setup the anniversary reminders
-        private void readAnniversaryReminders()
+        private void readAnniversaryReminders( string key )
         {
-            kReminders[0] = help.Translation.Get("AnniversaryReminder.0").Default("Missing translation");
-            kReminders[1] = help.Translation.Get("AnniversaryReminder.1").Default("Missing translation");
-            kReminders[2] = help.Translation.Get("AnniversaryReminder.2").Default("Missing translation");
+            string dialogueKey = "AnniversaryReminder";
+            if( key == "Bad" )
+            {
+               string badKey = "Bad.Reminder";
+
+               //Backwards compat: test if this translation file has Bad default reminders:
+               string testKey = badKey + ".0";
+               string line = help.Translation.Get(testKey).Default("Missing translation");
+               if( line != "Missing translation")
+               {
+                    dialogueKey = badKey;
+               }
+            }
+
+            if( this.Config.ExtraDebugging ){
+                this.Monitor.Log($"current dialogue key: {dialogueKey}", LogLevel.Debug);
+            }
+
+            for( int ct = 0; ct < 3; ct++ )
+            {
+                string lineKey =  dialogueKey + "." + ct;
+                string line = help.Translation.Get(lineKey).Default("Missing translation");
+                kReminders[ct] = line;
+            }
         }
 
         /// Populates the list with the appropriate text for each spouse
@@ -195,19 +216,34 @@ namespace WeddingAnniversaries
 
         //Handles Anniversary Reminder dialogue
         // If the dialogue key doesn't exist in the shared asset, load in a random default line
-        private void PushReminderText(NPC npc)
+        private void PushReminderText(NPC npc, int hearts)
         {
             string nameKey = npc.Name;
-            string dialogueKey = "Reminder_" + nameKey;
+            string baseKey = "Reminder_" + nameKey;
+            string dialogueKey = baseKey;
+            string type = "";
+
+            if (hearts < 9)
+            {
+                dialogueKey += "_Bad";
+                type = "Bad";
+            }
 
             string reminderLine = "";
             if (this.Dialogue.TryGetValue(dialogueKey, out string? dialogue))
             {
                 reminderLine = dialogue;
             }
+            else if(this.Dialogue.TryGetValue(baseKey, out string? dialogue2))
+            {
+                reminderLine = dialogue2; //Backwards compat (Reminder string without _Bad support)
+            }
             else{
 
-                //There is only one seet of default reminders, and it is already populated
+                //Re-populate the list with values for the current spouse
+                readAnniversaryReminders(type);
+
+                //Get a random one
                 int idx = Random.Shared.Next(0,2);
                 reminderLine = kReminders[idx];
 
@@ -273,7 +309,7 @@ namespace WeddingAnniversaries
                 else if (friendship.DaysMarried % kPeriod == (kPeriod - 7))
                 {
                     this.Monitor.Log($"Time for an anniversary reminder from {spouse.Name}", LogLevel.Debug);
-                    PushReminderText(spouse);
+                    PushReminderText(spouse, hearts);
                 }
             }
         }
