@@ -194,6 +194,11 @@ internal class MaxHeartSuitorsToken : AbstractNPCToken
                 {
                     continue;
                 }
+                else if( sveSuitors.Contains(npc.Name)) //none of these guys have events, but we can enable the default
+                {
+                    output.Add(npc.Name);
+                    continue;
+                }
 
                 //Check fit hey have a white event specified. If not, then they are requesting the default event play for their NPC
                 StardewValley.GameData.Characters.CharacterData data = npc.GetData();

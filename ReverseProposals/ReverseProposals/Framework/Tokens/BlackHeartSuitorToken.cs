@@ -141,13 +141,27 @@ internal class BlackHeartSuitorToken : AbstractNPCToken
             Globals.Monitor.Log($"validWeatherNames: {goodNames}, weather: {type}", LogLevel.Debug);
         }
 
-        if (validWeatherNames.Count == 0)
+        List<string> validBlackSuitors = new();
+        foreach(string nm in validWeatherNames)
+        {
+            string flagName = "Kantrip.MarryMe_StopBlack_" + nm;
+            if(!Game1.player.mailReceived.Contains(flagName))
+            {
+                validBlackSuitors.Add(nm);
+            }
+            else if(Globals.Config.ExtraDebugging)
+            {
+                Globals.Monitor.Log($"blackheartsuitors: removing {nm} because {flagName} is set", LogLevel.Debug);
+            }
+        }
+
+        if (validBlackSuitors.Count == 0)
         {
             yield break;
         }
 
-        int r = rnd.Next(validWeatherNames.Count);
-        yield return (validWeatherNames[r]);
+        int r = rnd.Next(validBlackSuitors.Count);
+        yield return (validBlackSuitors[r]);
     }
 
     private List<string> TryFilterNames(string type)
@@ -187,6 +201,10 @@ internal class BlackHeartSuitorToken : AbstractNPCToken
                 {
                     output.Add(npcName);
                 }
+                else if(!vanillaSuitors.Contains(npcName))
+                {
+                    output.Add(npcName); //regardless of weather, let the black heart event play for non-vanilla suitors
+                }
             }
         }
         else if (type == "rain" || type == "storm" || type == "snow")
@@ -196,6 +214,10 @@ internal class BlackHeartSuitorToken : AbstractNPCToken
                 if (rainySuitors.Contains(npcName))
                 {
                     output.Add(npcName);
+                }
+                else if(!vanillaSuitors.Contains(npcName))
+                {
+                    output.Add(npcName); //regardless of weather, let the black heart event play for non-vanilla suitors
                 }
             }
         }

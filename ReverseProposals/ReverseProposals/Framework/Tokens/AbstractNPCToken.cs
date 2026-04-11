@@ -16,6 +16,12 @@ internal abstract class AbstractNPCToken
             "Abigail", "Alex", "Elliott", "Emily", "Haley", "Harvey", "Leah", "Maru", "Penny", "Sam", "Shane", "Sebastian"
     };
 
+    //Note: not sure if the character name for Magnus should be "Magnus" or "Wizard". Also not sure I should enable him at all, because RRRR is a thing
+    internal static string[] sveSuitors = new string[7]
+    {
+            "Claire", "Lance", "Olivia", "Scarlett", "Sophia", "Victor", "Wizard"
+    };
+
     /// <summary>
     /// Internal cache for token. Will be null if not ready.
     /// </summary>
@@ -181,6 +187,7 @@ internal abstract class AbstractNPCToken
             {
                 StardewValley.GameData.Characters.CharacterData data = npc.GetData();
                 bool isVanilla = vanillaSuitors.Contains(npc.Name);
+                bool isSVE = sveSuitors.Contains(npc.Name);
                 bool isAllowed = false;
                 if (data != null && data.CustomFields != null && data.CustomFields.TryGetValue("Kantrip.ReverseProposals/Allow", out string? proposalAllowed))
                 {
@@ -190,7 +197,7 @@ internal abstract class AbstractNPCToken
                     }
                 }
 
-                if (isVanilla || isAllowed) //play this mod's default black event
+                if (isVanilla || isSVE || isAllowed) //play this mod's default black event
                 {
                     suitors.Add(npc);
                 }
