@@ -11,7 +11,7 @@ internal class BlackHeartSuitorToken : AbstractNPCToken
 {
     /*********
     ** Fields
-    *********/
+    *********/    
     static Random rnd = new Random();
 
     internal static string[] rainySuitors = new string[6]
@@ -144,7 +144,7 @@ internal class BlackHeartSuitorToken : AbstractNPCToken
         List<string> validBlackSuitors = new();
         foreach(string nm in validWeatherNames)
         {
-            string flagName = "Kantrip.MarryMe_StopBlack_" + nm;
+            string flagName = CPModID + "_StopBlack_" + nm;
             if(!Game1.player.mailReceived.Contains(flagName))
             {
                 validBlackSuitors.Add(nm);

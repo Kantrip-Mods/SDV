@@ -72,6 +72,10 @@ internal class MaxHeartSuitorsToken : AbstractNPCToken
         {
             hasChanged = true;
         }
+        else if( suitors.Count != this.tokenCache.Count )
+        {
+            hasChanged = true;
+        }
         else
         {
             foreach (NPC npc in suitors)

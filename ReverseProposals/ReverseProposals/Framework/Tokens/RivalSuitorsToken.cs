@@ -34,9 +34,13 @@ internal class RivalSuitorsToken : AbstractNPCToken
     protected override bool DidDataChange()
     {
         bool hasChanged = false;
-        List<NPC> suitors = GetSuitors();
+        List<NPC> suitors = suitorsCache;
 
         if (this.tokenCache == null)
+        {
+            hasChanged = true;
+        }
+        else if( this.tokenCache.Count != suitors.Count )
         {
             hasChanged = true;
         }

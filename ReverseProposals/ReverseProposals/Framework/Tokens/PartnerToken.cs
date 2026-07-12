@@ -41,8 +41,14 @@ internal class PartnerToken : AbstractNPCToken
         if (this.tokenCache == null)
         {
             hasChanged = true;
+            this.tokenCache = new List<NPC>();
         }
-        else if( partner != null && !this.tokenCache.Contains(partner))
+    
+        if( partner != null && !this.tokenCache.Contains(partner))
+        {
+            hasChanged = true;
+        }
+        else if( partner == null && this.tokenCache.Count > 0)
         {
             hasChanged = true;
         }
@@ -50,7 +56,7 @@ internal class PartnerToken : AbstractNPCToken
         if (hasChanged)
         {
             this.tokenCache = new List<NPC>();
-            if (partner!= null)
+            if (partner != null)
             {
                 this.tokenCache.Add(partner);
             }
@@ -86,7 +92,15 @@ internal class PartnerToken : AbstractNPCToken
     private NPC? GetPartner()
     {
         //Globals.Monitor.Log($"RivalSuitors Token: GetSuitors() called", LogLevel.Debug);
-
+        if( partnerCache.Count == 0 )
+        {
+            return null;
+        }
+        else
+        {
+            return partnerCache.First();
+        }
+        /*
         Farmer farmer = Game1.player;
         foreach (string name in farmer.friendshipData.Keys)
         {
@@ -103,5 +117,6 @@ internal class PartnerToken : AbstractNPCToken
             }
         }
         return null;
+        */
     }
 }

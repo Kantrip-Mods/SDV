@@ -6,6 +6,7 @@ using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using ReverseProposals.SweetTokens;
 using StardewValley;
+using xTile.Format;
 
 namespace ReverseProposals;
 
@@ -30,6 +31,7 @@ public interface IContentPatcherAPI
 public class ModEntry : Mod
 {
     internal ModConfig config;
+    internal static string CPModID = "Kantrip.MarryMe";
 
     //public static IContentPatcherAPI api;
     internal static SuitorsToken SuitorsToken { get; private set; } = new SuitorsToken();
@@ -53,6 +55,7 @@ public class ModEntry : Mod
 
         Globals.Helper.Events.GameLoop.GameLaunched += OnGameLaunched;
         Globals.Helper.Events.GameLoop.DayStarted += OnDayStarted;
+        Globals.Helper.Events.GameLoop.DayEnding += OnDayEnding;
         Globals.Helper.Events.GameLoop.SaveLoaded += OnSaveLoaded;
     }
 
@@ -62,25 +65,17 @@ public class ModEntry : Mod
         RegisterTokens();
     }
 
+    private static void OnDayEnding(object? sender, DayEndingEventArgs e)
+    {
+        //Globals.Monitor.Log($"MM: OnDayEnding", LogLevel.Debug);
+        AbstractNPCToken.RefreshSuitors();
+    }
     private static void OnDayStarted(object? sender, DayStartedEventArgs e)
     {
         //Globals.Monitor.Log($"MM: OnDayStarted", LogLevel.Debug);
         Farmer farmer = Game1.player;
-        String CPModID = "Kantrip.MarryMe";
-        foreach (string name in farmer.friendshipData.Keys)
+        foreach( NPC npc in AbstractNPCToken.suitorsCache )
         {
-            NPC npc = Game1.getCharacterFromName(name);
-            if (npc == null)
-            {
-                continue;
-            }
-
-            Friendship friendship = farmer.friendshipData[name];
-            if (npc.isMarried() || !friendship.IsDating())
-            {
-                continue;
-            }
-
             string timeKey = CPModID + "_Timer_" + npc.Name;
             string startKey = CPModID + "_Start" + npc.Name;
             string whiteKey = CPModID + "_Proposal_" + npc.Name;
@@ -105,13 +100,13 @@ public class ModEntry : Mod
 
     private static void OnSaveLoaded(object? sender, SaveLoadedEventArgs e)
     {
+        //What I should be doing:
+        //1. OnSaveLoaded, go through relationships once and make a master list of suitors
+        //2. OnDayEnding, update this list of suitors
+        //3. OnDayStarting, print out timers. This is when CP will also be checking tokens
+
         //Globals.Monitor.Log($"MM: OnSaveLoaded", LogLevel.Debug);
-        SuitorsToken.UpdateContext();
-        MaxHeartSuitorsToken.UpdateContext();
-        RivalSuitorsToken.UpdateContext();
-        PartnerToken.UpdateContext();
-        FianceeToken.UpdateContext();
-        BlackHeartSuitorToken.UpdateContext();
+        AbstractNPCToken.RefreshSuitors();
     }
 
     public static void RegisterActions()
@@ -133,7 +128,7 @@ public class ModEntry : Mod
             api.RegisterToken(Globals.Manifest, "Fiancee", FianceeToken);
             api.RegisterToken(Globals.Manifest, "BlackHeartSuitor", BlackHeartSuitorToken);
 
-            Globals.Monitor.Log($"Finished registering sweet tokens");
+            Globals.Monitor.Log($"Finished registering ReverseProposals tokens");
         }
     }
 

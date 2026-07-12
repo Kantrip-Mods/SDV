@@ -10,6 +10,8 @@ namespace ReverseProposals.SweetTokens;
 /// </summary>
 internal abstract class AbstractNPCToken
 {
+    internal static string CPModID = "Kantrip.MarryMe";
+    
     //private static readonly string[] Booleans = new[] { "true", "false" };
     internal static string[] vanillaSuitors = new string[12]
     {
@@ -21,6 +23,12 @@ internal abstract class AbstractNPCToken
     {
             "Claire", "Lance", "Olivia", "Scarlett", "Sophia", "Victor", "Wizard"
     };
+
+    /// <summary>
+    /// Global cache
+    /// </summary>
+    internal static List<NPC> suitorsCache = new List<NPC>(); //people we are dating
+    internal static List<NPC> partnerCache = new List<NPC>();
 
     /// <summary>
     /// Internal cache for token. Will be null if not ready.
@@ -85,12 +93,13 @@ internal abstract class AbstractNPCToken
     //public abstract bool UpdateContext();
     public virtual bool UpdateContext()
     {
-        bool hasChanged = false;
+        // ignore if player hasn't loaded a save yet
+        if (!Context.IsWorldReady)
+        {
+            return false;
+        }
 
-		if (Context.IsWorldReady)
-		{
-			hasChanged = DidDataChange();
-		}
+        bool hasChanged = DidDataChange();
 
         if (Globals.Config.ExtraDebugging)
         {
@@ -107,7 +116,7 @@ internal abstract class AbstractNPCToken
     /// <param name="newValues">The new values for the token.</param>
     /// <returns>true if cache updated, false otherwise.</returns>
     /// 
-
+/*
     protected bool UpdateCache(List<NPC>? newValues)
     {
         if (newValues == this.tokenCache)
@@ -120,6 +129,7 @@ internal abstract class AbstractNPCToken
             return true;
         }
     }
+*/
 
     protected List<string> GetCachedNames()
     {
@@ -135,9 +145,16 @@ internal abstract class AbstractNPCToken
         }
         return output;
     }
-    protected static List<NPC> GetSuitors()
+
+    public static void RefreshSuitors()
     {
-        List<NPC> suitors = new List<NPC>();
+        if (Globals.Config.ExtraDebugging)
+        {
+            Globals.Monitor.Log($"Abstract RefreshSuitors called", LogLevel.Debug);
+        }
+
+        //List<NPC> suitors = new List<NPC>();
+        suitorsCache.Clear();
 
         Farmer farmer = Game1.player;
         foreach (string name in farmer.friendshipData.Keys)
@@ -152,13 +169,19 @@ internal abstract class AbstractNPCToken
             if (npc.isMarried() || !friendship.IsDating())
             {
                 //Globals.Monitor.Log($"{{npc.Name}} is not dating {Game1.player.Name}", LogLevel.Debug);
+                if( friendship.IsMarried() || friendship.IsEngaged() )
+                {
+                   partnerCache.Add(npc);
+                }
                 continue;
             }
 
-            suitors.Add(npc);
+            suitorsCache.Add(npc);
         }
 
-        return suitors.Count > 0 ? suitors : Enumerable.Empty<NPC>().ToList();
+        //suitorsCache = suitors;
+
+        //return suitors.Count > 0 ? suitors : Enumerable.Empty<NPC>().ToList();
     }
 
     //This should probably just get all the NPCs at 10 hearts. TryFilterNames should filter according to customfields?
@@ -167,20 +190,22 @@ internal abstract class AbstractNPCToken
         List<NPC> suitors = new List<NPC>();
 
         Farmer farmer = Game1.player;
-        foreach (string name in farmer.friendshipData.Keys)
+        //foreach (string name in farmer.friendshipData.Keys)
+        foreach( NPC npc in suitorsCache )
         {
-            NPC npc = Game1.getCharacterFromName(name);
-            if (npc == null)
-            {
-                continue;
-            }
+            //NPC npc = Game1.getCharacterFromName(name);
+            //if (npc == null)
+            //{
+               // continue;
+            //}
+            String name = npc.Name;
 
             Friendship friendship = farmer.friendshipData[name];
-            if (npc.isMarried() || !friendship.IsDating())
-            {
+            //if (npc.isMarried() || !friendship.IsDating())
+            //{
                 //Globals.Monitor.Log($"{{npc.Name}} is not dating {Game1.player.Name}", LogLevel.Debug);
-                continue;
-            }
+                //continue;
+            //}
 
             int hearts = friendship.Points / 250;
             if (hearts >= 10)

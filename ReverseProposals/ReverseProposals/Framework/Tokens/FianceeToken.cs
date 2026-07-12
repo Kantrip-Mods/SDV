@@ -44,8 +44,14 @@ internal class FianceeToken : AbstractNPCToken
         if (this.tokenCache == null)
         {
             hasChanged = true;
+            this.tokenCache = new List<NPC>();
         }
-        else if( fiancee != null && !this.tokenCache.Contains(fiancee))
+    
+        if( fiancee != null && !this.tokenCache.Contains(fiancee))
+        {
+            hasChanged = true;
+        }
+        else if( fiancee == null && this.tokenCache.Count > 0)
         {
             hasChanged = true;
         }
@@ -89,17 +95,10 @@ internal class FianceeToken : AbstractNPCToken
     // get names
     private NPC? GetFiancee()
     {
-        //Globals.Monitor.Log($"RivalSuitors Token: GetSuitors() called", LogLevel.Debug);
-
         Farmer farmer = Game1.player;
-        foreach (string name in farmer.friendshipData.Keys)
+        foreach( NPC npc in partnerCache )
         {
-            NPC npc = Game1.getCharacterFromName(name);
-            if (npc == null)
-            {
-                continue;
-            }
-
+            string name = npc.Name;
             Friendship friendship = farmer.friendshipData[name];
             if (friendship.IsEngaged())
             {
