@@ -35,6 +35,8 @@ internal class PartnerToken : AbstractNPCToken
 
     protected override bool DidDataChange()
     {
+        //Globals.Monitor.Log($"PartnerToken: DidDataChange()", LogLevel.Debug);
+
         bool hasChanged = false;
         NPC? partner = GetPartner();
 
@@ -62,7 +64,6 @@ internal class PartnerToken : AbstractNPCToken
             }
         }
 
-        //Globals.Monitor.Log($"suitors.Count: {suitors.Count}, cachedSuitors.Count: {cachedSuitors.Count}", LogLevel.Debug);
         //Globals.Monitor.Log($"hasChanged: {hasChanged}", LogLevel.Debug);
         return hasChanged;
     }

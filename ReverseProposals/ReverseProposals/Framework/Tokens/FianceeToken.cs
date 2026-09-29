@@ -38,6 +38,8 @@ internal class FianceeToken : AbstractNPCToken
 
     protected override bool DidDataChange()
     {
+        //Globals.Monitor.Log($"FianceeToken: DidDataChange()", LogLevel.Debug);
+
         bool hasChanged = false;
         NPC? fiancee = GetFiancee();
 

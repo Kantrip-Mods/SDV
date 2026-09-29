@@ -1,11 +1,12 @@
 {
     "Name": "Reverse Proposals",
     "Author": "Kantrip",
-    "Version": "1.6",
+    "Version": "1.6.2",
     "Description": "Actions, Tokens, etc needed for MarryMe: Reverse Wedding Proposals",
     "UniqueID": "Kantrip.ReverseProposals",
     "EntryDll": "ReverseProposals.dll",
     "MinimumApiVersion": "4.0.0",
+    "UpdateKeys": ["Nexus:34789"],
     "Dependencies": [
         {
         "UniqueID": "Pathoschild.ContentPatcher",

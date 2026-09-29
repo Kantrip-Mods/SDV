@@ -33,6 +33,8 @@ internal class RivalSuitorsToken : AbstractNPCToken
 
     protected override bool DidDataChange()
     {
+        //Globals.Monitor.Log($"RivalSuitorsToken: DidDataChange()", LogLevel.Debug);
+
         bool hasChanged = false;
         List<NPC> suitors = suitorsCache;
 

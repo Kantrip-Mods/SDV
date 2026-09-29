@@ -33,6 +33,8 @@ internal class SuitorsToken : AbstractNPCToken
 
     protected override bool DidDataChange()
     {
+        //Globals.Monitor.Log($"SuitorsToken: DidDataChange()", LogLevel.Debug);
+
         bool hasChanged = false;
         List<NPC> suitors = suitorsCache;
 
@@ -61,7 +63,7 @@ internal class SuitorsToken : AbstractNPCToken
             this.tokenCache = suitors;
         }
 
-        //Globals.Monitor.Log($"suitors.Count: {suitors.Count}, cachedSuitors.Count: {cachedSuitors.Count}", LogLevel.Debug);
+        //Globals.Monitor.Log($"suitors.Count: {suitors.Count}, tokenCache.Count: {tokenCache.Count}", LogLevel.Debug);
         //Globals.Monitor.Log($"hasChanged: {hasChanged}", LogLevel.Debug);
         return hasChanged;
     }

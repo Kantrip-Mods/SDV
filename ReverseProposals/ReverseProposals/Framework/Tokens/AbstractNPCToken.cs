@@ -129,7 +129,7 @@ internal abstract class AbstractNPCToken
             return true;
         }
     }
-*/
+    */
 
     protected List<string> GetCachedNames()
     {
@@ -146,6 +146,13 @@ internal abstract class AbstractNPCToken
         return output;
     }
 
+    internal void ClearCache()
+    {
+        if(this.tokenCache is not null)
+        {
+            this.tokenCache = null;
+        }
+    }
     public static void RefreshSuitors()
     {
         if (Globals.Config.ExtraDebugging)
@@ -155,6 +162,7 @@ internal abstract class AbstractNPCToken
 
         //List<NPC> suitors = new List<NPC>();
         suitorsCache.Clear();
+        partnerCache.Clear();
 
         Farmer farmer = Game1.player;
         foreach (string name in farmer.friendshipData.Keys)

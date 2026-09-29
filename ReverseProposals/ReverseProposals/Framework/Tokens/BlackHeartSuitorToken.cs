@@ -1,7 +1,5 @@
-using System.Linq.Expressions;
 using StardewModdingAPI;
 using StardewValley;
-using StardewValley.Buildings;
 
 namespace ReverseProposals.SweetTokens;
 
@@ -51,12 +49,16 @@ internal class BlackHeartSuitorToken : AbstractNPCToken
     //tokenCache is no longer null.
     protected override bool DidDataChange()
     {
-        //Globals.Monitor.Log($"MaxHeartSuitorsToken: DidDataChange()", LogLevel.Debug);
+        //Globals.Monitor.Log($"BlackHeartSuitorsToken: DidDataChange()", LogLevel.Debug);
 
         bool hasChanged = false;
         List<NPC> suitors = GetMaxHeartSuitors();
 
         if (this.tokenCache == null)
+        {
+            hasChanged = true;
+        }
+        else if( suitors.Count != this.tokenCache.Count )
         {
             hasChanged = true;
         }

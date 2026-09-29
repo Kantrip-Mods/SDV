@@ -6,7 +6,6 @@ using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using ReverseProposals.SweetTokens;
 using StardewValley;
-using xTile.Format;
 
 namespace ReverseProposals;
 
@@ -57,6 +56,7 @@ public class ModEntry : Mod
         Globals.Helper.Events.GameLoop.DayStarted += OnDayStarted;
         Globals.Helper.Events.GameLoop.DayEnding += OnDayEnding;
         Globals.Helper.Events.GameLoop.SaveLoaded += OnSaveLoaded;
+        Globals.Helper.Events.GameLoop.ReturnedToTitle += OnReturnedToTitle;
     }
 
     private static void OnGameLaunched(object? sender, GameLaunchedEventArgs e)
@@ -107,6 +107,17 @@ public class ModEntry : Mod
 
         //Globals.Monitor.Log($"MM: OnSaveLoaded", LogLevel.Debug);
         AbstractNPCToken.RefreshSuitors();
+    }
+
+    private static void OnReturnedToTitle(object? sender, ReturnedToTitleEventArgs e)
+    {
+        //Clear the token cache so that IsReady returns false
+        SuitorsToken.ClearCache();
+        MaxHeartSuitorsToken.ClearCache();
+        RivalSuitorsToken.ClearCache();
+        PartnerToken.ClearCache();
+        FianceeToken.ClearCache();
+        BlackHeartSuitorToken.ClearCache();
     }
 
     public static void RegisterActions()
